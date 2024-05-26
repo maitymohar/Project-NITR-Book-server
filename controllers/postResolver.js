@@ -21,9 +21,9 @@ export const getPosts = async (req, res) => {
 
 export const getPostById = async (req, res) => {
   try {
-    const Post = await Post.findById(req.params.id);
-    if (Post) {
-      res.status(200).json(Post);
+    const _Post = await Post.findById(req.params.id);
+    if (_Post) {
+      res.status(200).json(_Post);
     } else {
       res.status(404).json({ message: "Post not found" });
     }
@@ -55,6 +55,22 @@ export const deletePost = async (req, res) => {
     } else {
       res.status(404).json({ message: "Post not found" });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getPostsByTags = async (req, res) => {
+  const { tags } = req.query;
+
+  const tagArray = tags.split(",");
+
+  try {
+    const posts = await Post.find({
+      tags: { $elemMatch: { name: { $in: tagArray } } },
+    }).populate("author");
+
+    res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

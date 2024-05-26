@@ -1,8 +1,19 @@
 import mongoose from "mongoose";
 
-const postSchema = new mongoose.Schema({
-  author: {
+const { Schema, model } = mongoose;
+const { ObjectId } = Schema.Types;
+
+const tagsSchema = new Schema({
+  name: {
     type: String,
+    required: true,
+  },
+});
+
+const postSchema = new Schema({
+  author: {
+    type: ObjectId,
+    ref: "Profile",
     required: true,
   },
   identity: {
@@ -21,9 +32,9 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  tags: [String],
+  tags: [tagsSchema],
 });
 
-const Post = mongoose.model("Post", postSchema);
+const Post = model("Post", postSchema);
 
 export default Post;
