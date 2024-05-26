@@ -14,16 +14,22 @@ git clone https://github.com/{username}/Project-NITR-Book-server.git
 
 ## To run the project
 
-1. Install the dependencies
+1. move to the project directory
+
+```bash
+cd server
+```
+
+2. Install the dependencies
 
 ```bash
 yarn install
 ```
 
-2. Start the server
+3. Start the server
 
 ```bash
-yarn start
+yarn run start
 ```
 
 3. for hot reloading, to updates while working on the project
