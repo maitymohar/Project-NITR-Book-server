@@ -1,36 +1,23 @@
 import mongoose from "mongoose";
 
-const organisationSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  Society: {
-    type: String,
-    required: true,
-  },
-  President: {
-    type: String,
-    required: false,
-  },
-  EB: {
-    type: [Object],
-    required: true,
-  },
-  first_members: {
-    type: [String],
-    required: false,
-  },
-  second_members: {
-    type: [String],
-    required: false,
-  },
-  mentors: {
-    type: [String],
-    required: false,
-  },
+const { Schema, model } = mongoose;
+const { ObjectId } = Schema.Types;
+
+const ebMemberSchema = new Schema({
+  member: { type: ObjectId, ref: "Profile" },
+  position: String,
 });
 
-const Club = mongoose.model("Club", organisationSchema);
+const organisationSchema = new Schema({
+  name: { type: String, required: true },
+  society: { type: String, required: true },
+  president: { type: ObjectId, ref: "Profile" },
+  eb: { type: [ebMemberSchema], required: true },
+  firstMembers: { type: [ObjectId], ref: "Profile" },
+  secondMembers: { type: [ObjectId], ref: "Profile" },
+  mentors: { type: [ObjectId], ref: "Profile" },
+});
+
+const Club = model("Club", organisationSchema);
 
 export default Club;
