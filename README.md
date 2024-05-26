@@ -26,7 +26,7 @@ yarn install
 yarn start
 ```
 
-3. for hotloading, to updates while working on the project
+3. for hot reloading, to updates while working on the project
 
 ```bash
 yarn run dev
